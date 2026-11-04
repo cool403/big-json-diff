@@ -1,0 +1,36 @@
+{
+  "name": "big-json-diff",
+  "version": "0.1.0",
+  "description": "Visual diff tool for huge JSON files powered by DuckDB",
+  "type": "module",
+  "bin": {
+    "big-json-diff": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "public"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx src/cli.ts",
+    "start": "node dist/cli.js",
+    "prepare": "npm run build"
+  },
+  "dependencies": {
+    "duckdb": "^1.1.3",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/ws": "^8.5.13",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  },
+  "allowScripts": {
+    "duckdb@1.4.4": true,
+    "esbuild@0.28.2": true
+  }
+}
