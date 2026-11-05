@@ -24,6 +24,31 @@ npm run build && npm start
 
 打开 <http://127.0.0.1:8420>，上传或粘贴两个 JSON 文件，点击「开始对比」。
 
+### Node 版本要求
+
+请使用 **Node 22 或 24**（仓库内已提供 `.nvmrc`，内容为 `24.21.0`）。原因是 `duckdb` 原生模块只为 Node 22（ABI `node-v127`）和 Node 24（ABI `node-v137`）发布预编译二进制：
+
+- 在 Node 22 / 24 上，`npm install` 直接下载预编译包，无需编译器
+- 在 Node 26（ABI `node-v147`）等较新版本上，预编译包返回 **404**，npm 会回退到用 `node-gyp` 从源码编译 DuckDB
+
+Windows 上如果遇到下面的报错，就是这个原因，切换 Node 版本即可，**不需要安装 Visual Studio**：
+
+```
+[log] GET https://npm.duckdb.org/duckdb/duckdb-v1.4.4-node-v147-win32-x64.tar.gz
+[error] install response status 404 Not Found
+[warn] Pre-built binaries not installable for duckdb@1.4.4 and node@26.x (node-v147 ABI, unknown)
+gyp ERR! find VS - missing any VC++ toolset
+gyp ERR! stack Error: Could not find any Visual Studio installation to use
+```
+
+```bash
+nvm install 24 && nvm use 24   # 或直接 nvm use（自动读取 .nvmrc）
+node -v                        # 确认是 v22.x / v24.x
+npm install
+```
+
+Linux / macOS 上通常不会碰到，因为系统 Node 多为 22/24，能直接命中预编译包。
+
 ### CLI 参数
 
 ```bash
